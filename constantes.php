@@ -7,6 +7,7 @@ class constantes{
     static $url='jdbc:mysql://localhost/buscaminas';
 
     //Consultas
+    static $selectTodosUsuarios="SELECT * FROM jugador";
     static $selectUsuarioConcreto="SELECT * FROM persona WHERE idUsuario = ?";
     static $consultarPartidaConcreta="SELECT * FROM persona WHERE idUsuario = ?";
     
