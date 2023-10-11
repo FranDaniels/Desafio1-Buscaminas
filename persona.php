@@ -7,8 +7,9 @@ class persona{
     public $correo;
     public $partidasJugadas;
     public $partidasGanadas;
+	public $administrador;
 
-	public function __construct($id, $nombre, $contrasenia, $correo, $partidasJugadas, $partidasGanadas) {
+	public function __construct($id, $nombre, $contrasenia, $correo, $partidasJugadas, $partidasGanadas, $administrador) {
 
 		$this->id = $id;
 		$this->nombre = $nombre;
@@ -16,6 +17,7 @@ class persona{
 		$this->correo = $correo;
 		$this->partidasJugadas = $partidasJugadas;
 		$this->partidasGanadas = $partidasGanadas;
+		$this->administrador = $administrador;
 	}
 
 	public function getId() {
@@ -64,5 +66,17 @@ class persona{
 
 	public function setPartidasGanadas($value) {
 		$this->partidasGanadas = $value;
+	}
+
+	public function getAdministrador() {
+		return $this->administrador;
+	}
+
+	public function setAdministrador($value) {
+		$this->administrador = $value;
+	}
+
+	public function __toString(){
+		return 'ID: '.$this->id. ' Nombre: '.$this->nombre. ' Correo: '.$this->correo. ' Partidas Jugadas: '.$this->partidasJugadas. ' Partidas Ganadas: '.$this->partidasGanadas. ' Administrador '.$this->administrador;
 	}
 }
