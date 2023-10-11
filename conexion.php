@@ -21,7 +21,7 @@ class conexion{
     static function consultarUsuario($idUsuario){
         
         if (self::comprobarConexion()==0) {
-            $consulta=self::$conexion->prepare("SELECT * FROM persona WHERE idUsuario = ?");
+            $consulta=self::$conexion->prepare(constantes::$selectUsuarioConcreto);
 
             $stmt=mysqli_prepare(self::$conexion,$consulta);
             mysqli_stmt_bind_param($stmt,'s',$idUsuario);
@@ -41,7 +41,7 @@ class conexion{
     static function crearUsuario(){
         self::comprobarConexion();
 
-        $query=self::$conexion->prepare("INSERT INTO persona (idUsuario,nombre,contrasenia,correo,partidasJugadas,partidasGanadas) VALUES (?,?,?,?,?,?)");
+        $query=self::$conexion->prepare(constantes::$crearUsuario);
         $stmt=mysqli_prepare(self::$conexion,$query);
         mysqli_stmt_bind_param($stmt,'isssii');
         try {
@@ -57,12 +57,12 @@ class conexion{
     static function modificarUsuario($idUsuario,$nuevoNombreUsuario){
         self::comprobarConexion();
 
-        $query=self::$conexion->prepare("UPDATE persona SET nombre = ? WHERE $idUsuario = ?");
+        $query=self::$conexion->prepare(constantes::$modificarUsuario);
         $stmt=mysqli_prepare(self::$conexion,$query);
         mysqli_stmt_bind_param($stmt,'si',$nuevoNombreUsuario, $idUsuario);
 
         try {
-            echo mysqli_stmt_execute($stmt).'Modificación realizada correctamente.<br>';
+            echo mysqli_stmt_execute($stmt).'Modificación realizada correctamente.<br>'; 
         } catch (Exception $e) {
             echo "Fallo al modificar el usuario: (" . $e->getMessage() . ") <br>";
         }
@@ -75,7 +75,7 @@ class conexion{
     static function borrarUsuario($idUsuario){
         self::comprobarConexion();
 
-        $query=self::$conexion->prepare("DELETE FROM persona WHERE $idUsuario = '?'");
+        $query=self::$conexion->prepare(constantes::$borrarUsuario);
         try {
             mysqli_query(self::$conexion,$query);
             echo "Borrado correctamente <br>";
@@ -90,7 +90,7 @@ class conexion{
     static function insertarPartida(){
         self::comprobarConexion();
 
-        $query=self::$conexion->prepare("INSERT INTO partida (idPartida,idUsuario,tableroOculto,tableroMostrado,finalizado) VALUES (?,?,?,?,?)"); 
+        $query=self::$conexion->prepare(constantes::$crearPartida); 
         $stmt=mysqli_prepare(self::$conexion,$query);
 
         mysqli_stmt_bind_param($stmt,'iissb');
@@ -107,7 +107,7 @@ class conexion{
     //Borrar partida
     static function borrarPartida($idPartida){
         if (self::comprobarConexion()==0) {
-            $query=self::$conexion->prepare("DELETE FROM partida WHERE idPartida = '$idPartida'");    
+            $query=self::$conexion->prepare(constantes::$borrarPartida);    
             try {
                 mysqli_query(self::$conexion,$query);
             } catch (Exception $e) {
@@ -122,7 +122,7 @@ class conexion{
     static function consultarPartida($idUsuario){
         
         if (self::comprobarConexion()==0) {
-            $consulta=self::$conexion->prepare("SELECT * FROM persona WHERE idUsuario = ?");
+            $consulta=self::$conexion->prepare(constantes::$consultarPartidaConcreta);
 
             $stmt=mysqli_prepare(self::$conexion,$consulta);
             mysqli_stmt_bind_param($stmt,'s',$idUsuario);
