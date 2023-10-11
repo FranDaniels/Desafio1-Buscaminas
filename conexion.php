@@ -16,6 +16,29 @@ class conexion{
         return $numero;//En el caso que me de -1 es false si me da 0 es true y la conexion es correcta.
     }
 
+    //Consultar varios usuarios
+    public static function getJugadores(){
+
+        if (self::comprobarConexion()==0) {
+            $query= self::$conexion->prepare(constantes::$selectTodosUsuarios);
+            $stmt=mysqli_prepare(self::$conexion,$query);
+
+            try {
+                mysqli_stmt_execute($stmt);
+                $resultados=$stmt->get_result();
+                $usuarios=[];
+
+                while ($fila = mysqli_fetch_array($resultados)){
+                    //Crearemos el usuario luego
+                    $u=0;
+                    $usuarios=$u;
+                    print_r($usuarios);
+                }
+            } catch (Exception $e) {
+                echo "Fallo al mostrar: (" . $e->getMessage() . ") <br>";
+            }
+        }
+    }
 
     //Consulta de usuario en concreto
     static function consultarUsuario($idUsuario){
@@ -23,15 +46,19 @@ class conexion{
         if (self::comprobarConexion()==0) {
             $consulta=self::$conexion->prepare(constantes::$selectUsuarioConcreto);
 
-            $stmt=mysqli_prepare(self::$conexion,$consulta);
-            mysqli_stmt_bind_param($stmt,'s',$idUsuario);
-            mysqli_stmt_execute($stmt);
-            $resultados=mysqli_stmt_get_result($stmt);
+            try {
+                $stmt=mysqli_prepare(self::$conexion,$consulta);
+                mysqli_stmt_bind_param($stmt,'s',$idUsuario);
+                mysqli_stmt_execute($stmt);
+                $resultados=mysqli_stmt_get_result($stmt);
 
-            while ($fila=mysqli_fetch_array($resultados)){
-                print_r($fila);
+                while ($fila=mysqli_fetch_array($resultados)){
+                    print_r($fila);
+                }
+            } catch (Exception $e) {
+                echo "Fallo al mostrar: (" . $e->getMessage() . ") <br>";
             }
-
+            
             $consulta->close();
             self::$conexion->close();
         }
