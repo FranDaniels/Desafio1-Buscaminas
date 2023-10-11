@@ -6,6 +6,7 @@ class conexion{
 
     static $conexion;
 
+    //Comprobación de que la conexión se realiza correctamente
     static function comprobarConexion(){
         $numero=0;
         self::$conexion=new mysqli(constantes::$host,constantes::$user,constantes::$password,constantes::$url);
@@ -15,6 +16,8 @@ class conexion{
         return $numero;//En el caso que me de -1 es false si me da 0 es true y la conexion es correcta.
     }
 
+
+    //Consulta de usuario en concreto
     static function consultarUsuario($idUsuario){
         
         if (self::comprobarConexion()==0) {
@@ -34,6 +37,7 @@ class conexion{
         }
     }
 
+    //Creación de usuario
     static function crearUsuario(){
         self::comprobarConexion();
 
@@ -49,6 +53,25 @@ class conexion{
         self::$conexion->close();
     }
 
+    //Modificar usuario
+    static function modificarUsuario($idUsuario,$nuevoNombreUsuario){
+        self::comprobarConexion();
+
+        $query=self::$conexion->prepare("UPDATE persona SET nombre = ? WHERE $idUsuario = ?");
+        $stmt=mysqli_prepare(self::$conexion,$query);
+        mysqli_stmt_bind_param($stmt,'si',$nuevoNombreUsuario, $idUsuario);
+
+        try {
+            echo mysqli_stmt_execute($stmt).'Modificación realizada correctamente.<br>';
+        } catch (Exception $e) {
+            echo "Fallo al modificar el usuario: (" . $e->getMessage() . ") <br>";
+        }
+
+        $query->close();
+        self::$conexion->close();
+    }
+
+    //Borrado de usuario
     static function borrarUsuario($idUsuario){
         self::comprobarConexion();
 
@@ -63,6 +86,7 @@ class conexion{
         self::$conexion->close();
     }
 
+    //Creación de nueva partida
     static function insertarPartida(){
         self::comprobarConexion();
 
@@ -80,6 +104,7 @@ class conexion{
         self::$conexion->close();
     }
 
+    //Borrar partida
     static function borrarPartida($idPartida){
         if (self::comprobarConexion()==0) {
             $query=self::$conexion->prepare("DELETE FROM partida WHERE idPartida = '$idPartida'");    
@@ -93,7 +118,8 @@ class conexion{
         }
     }
 
-    static function consultarPartidas($idUsuario){
+    //Consultar partida en especifica
+    static function consultarPartida($idUsuario){
         
         if (self::comprobarConexion()==0) {
             $consulta=self::$conexion->prepare("SELECT * FROM persona WHERE idUsuario = ?");
