@@ -6,7 +6,7 @@
 
 <h2 align="center">Manual de Usuario</h2>
 
-Inicializaremos el servidor con el comando:
+Inicializaremos el servidor con el comando:<br>
 ` php -S 127.0.0.1:234`
 
 <h2 align="center">🛠Manual de Administrador🛠</h2>
