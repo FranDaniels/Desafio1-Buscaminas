@@ -29,7 +29,7 @@ class conexion{
                 $usuarios=[];
 
                 while ($fila = mysqli_fetch_array($resultados)){
-                    //Crearemos el usuario
+                    //Crearemos el usuario luego
                     $u=0;
                     $usuarios=$u;
                     print_r($usuarios);
