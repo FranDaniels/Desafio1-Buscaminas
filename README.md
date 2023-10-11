@@ -1,5 +1,6 @@
 <h1 align="center">🚩Desafío 1 Buscaminas💣</h1>
-![Imagen de mina](https://github.com/FranDaniels/Desafio1-Buscaminas/assets/122791264/a0999d96-5a08-49ef-a47f-55c33595fa27)
+![descarga](https://github.com/FranDaniels/Desafio1-Buscaminas/assets/122791264/05c4c642-4636-41fe-bfef-b1dafa085461)
+
 
 <h4 align="center">
 :construction: Proyecto en construcción :construction:
