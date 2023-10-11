@@ -20,7 +20,7 @@ Nuestra aplicación tendrá los siguientes roles: administrador y jugador.</p>
 
 <h4>Administrador</h4>
 <h5>El administrador se encargará de:</h5>
-+ Listar los usuarios.
+- Listar los usuarios.
 + Buscar un usuario en específico.
 + Registrar los usuarios.
 + Modificar los usuarios.
