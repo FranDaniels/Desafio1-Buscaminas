@@ -20,13 +20,14 @@ Nuestra aplicación tendrá los siguientes roles: administrador y jugador.</p>
 
 <h4>Administrador</h4>
 <h5>El administrador se encargará de:</h5>
-- Listar los usuarios.
++ Listar los usuarios.
 + Buscar un usuario en específico.
 + Registrar los usuarios.
 + Modificar los usuarios.
 + Eliminar los usuarios.
 + Cambiar la contraseña de un usuario en concreto.
 
+<h4>Usuario</h4>
 <h5>El usuario se encargará de:</h5>
 + Crear partidas personalizadas o estándar.
 + Poder crear el tamaño del tablero y las minas especificándolo en la URL.
@@ -35,5 +36,6 @@ Nuestra aplicación tendrá los siguientes roles: administrador y jugador.</p>
 + Rendirse.
 + Jugar al buscaminas.
 
+<h4>Programa</h4>
 <h5>El programa se encargará de:</h5>
 + En el caso que el usuario no especifique el tamaño de tablero y minas desde la URL, el programa creará uno con tamaño y número de minas predefinido.
