@@ -18,8 +18,9 @@ Asimismo la aplicación permitirá un sistema de gestión de usuarios accesible 
 los administradores.
 Nuestra aplicación tendrá los siguientes roles: administrador y jugador.</p>
 
-<h4>Administrador</h4>
-<h5>El administrador se encargará de:</h5>
+<h3>Administrador</h3>
+<h4>El administrador se encargará de:</h4>
+
 + Listar los usuarios.
 + Buscar un usuario en específico.
 + Registrar los usuarios.
@@ -27,8 +28,9 @@ Nuestra aplicación tendrá los siguientes roles: administrador y jugador.</p>
 + Eliminar los usuarios.
 + Cambiar la contraseña de un usuario en concreto.
 
-<h4>Usuario</h4>
-<h5>El usuario se encargará de:</h5>
+<h3>Usuario</h3>
+<h4>El usuario se encargará de:</h4>
+
 + Crear partidas personalizadas o estándar.
 + Poder crear el tamaño del tablero y las minas especificándolo en la URL.
 + Solicitar cambio de contraseña.
@@ -36,6 +38,7 @@ Nuestra aplicación tendrá los siguientes roles: administrador y jugador.</p>
 + Rendirse.
 + Jugar al buscaminas.
 
-<h4>Programa</h4>
-<h5>El programa se encargará de:</h5>
+<h3>Programa</h3>
+<h4>El programa se encargará de:</h4>
+
 + En el caso que el usuario no especifique el tamaño de tablero y minas desde la URL, el programa creará uno con tamaño y número de minas predefinido.
