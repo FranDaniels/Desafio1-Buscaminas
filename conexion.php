@@ -113,7 +113,7 @@ class conexion{
         self::$conexion->close();
     }
 
-    //Creación de nueva partida
+    //Creación de una nueva partida
     static function insertarPartida(){
         self::comprobarConexion();
 
