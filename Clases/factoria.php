@@ -1,7 +1,7 @@
 <?php
 
-require_once ('persona.php');
-require_once ('partida.php');
+require_once ('Clases/persona.php');
+require_once ('Clases/partida.php');
 
 class factoria{
     public static function crearUsuario($id,$nombre,$contrasenia,$correo,$partidasJugadas,$partidasGanadas,$administrador){
