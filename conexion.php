@@ -145,7 +145,7 @@ class conexion{
         }
     }
 
-    //Consultar partida en especifica
+    //Consultar partida en específica
     static function consultarPartida($idUsuario){
         
         if (self::comprobarConexion()==0) {
