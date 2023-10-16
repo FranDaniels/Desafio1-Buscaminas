@@ -16,7 +16,8 @@ class constantes{
     static $crearPartida="INSERT INTO partida (idPartida,idUsuario,tableroOculto,tableroMostrado,finalizado) VALUES (?,?,?,?,?)";
 
     //Modificación
-    static $modificarUsuario="UPDATE persona SET nombre = ? WHERE idUsuario = ?";
+    static $modificarUsuario="UPDATE persona SET correo = ? WHERE correo = ?";
+    static $modificarContrasenia="UPDATE persona SET contrasenia = ? WHERE correo = ?";
 
     //Borrado
     static $borrarUsuario="DELETE FROM persona WHERE idUsuario = '?'";

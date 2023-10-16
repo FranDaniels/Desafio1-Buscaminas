@@ -164,4 +164,22 @@ class conexion{
             self::$conexion->close();
         }        
     }
+
+    //Cambiar contraseña de usuario
+    static function modificarContraseña($datosRecibidos){
+        self::comprobarConexion();
+
+        $query=self::$conexion->prepare(constantes::$modificarContrasenia);
+        $stmt=mysqli_prepare(self::$conexion,$query);
+        mysqli_stmt_bind_param($stmt,'ss',$datosRecibidos['contrasenia'], $datosRecibidos['correo']);
+
+        try {
+            echo mysqli_stmt_execute($stmt).'Modificación realizada correctamente.<br>'; 
+        } catch (Exception $e) {
+            echo "Fallo al modificar el usuario: (" . $e->getMessage() . ") <br>";
+        }
+
+        $query->close();
+        self::$conexion->close();
+    }
 }
