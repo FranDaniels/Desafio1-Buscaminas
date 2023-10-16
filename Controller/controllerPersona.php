@@ -1,7 +1,7 @@
 <?php
 
-require_once('Clases/factoria.php');
-require_once('conexion.php');
+require_once('Auxiliar/factoria.php');
+require_once('Auxiliar/conexion.php');
 
 class controllerPersona{
 

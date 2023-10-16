@@ -1,6 +1,6 @@
 <?php
 
-require_once('constantes.php');
+require_once('Auxiliar/constantes.php');
 
 class conexion{
 
