@@ -146,13 +146,13 @@ class conexion{
     }
 
     //Consultar partida en específica
-    static function consultarPartida($idUsuario){
+    static function consultarPartida($idPartida){
         
         if (self::comprobarConexion()==0) {
             $consulta=self::$conexion->prepare(constantes::$consultarPartidaConcreta);
 
             $stmt=mysqli_prepare(self::$conexion,$consulta);
-            mysqli_stmt_bind_param($stmt,'s',$idUsuario);
+            mysqli_stmt_bind_param($stmt,'s',$idPartida);
             mysqli_stmt_execute($stmt);
             $resultados=mysqli_stmt_get_result($stmt);
 
