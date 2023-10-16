@@ -9,7 +9,7 @@ class constantes{
     //Consultas
     static $selectTodosUsuarios="SELECT * FROM jugador";
     static $selectUsuarioConcreto="SELECT * FROM persona WHERE idUsuario = ?";
-    static $consultarPartidaConcreta="SELECT * FROM persona WHERE idUsuario = ?";
+    static $consultarPartidaConcreta="SELECT * FROM persona WHERE idPartida = ?";
     
     //Creación
     static $crearUsuario="INSERT INTO persona (idUsuario,nombre,contrasenia,correo,partidasJugadas,partidasGanadas) VALUES (?,?,?,?,?,?)";
