@@ -23,18 +23,18 @@ class conexion{
             $consulta=self::$conexion->prepare(constantes::$selectTodosUsuarios);
 
             try {
-                $stmt=mysqli_prepare(self::$conexion,$consulta);
-                mysqli_stmt_bind_param($stmt,'s',$idUsuario);
-                mysqli_stmt_execute($stmt);
-                $resultados=mysqli_stmt_get_result($stmt);
+                $stmt=self::$conexion->prepare($consulta);
+                $stmt->execute();
+                $resultados=$stmt->get_result();
 
-                while ($fila=mysqli_fetch_array($resultados)){
+                while ($fila=$resultados->fetch_array()){
                     print_r($fila);
                 }
             } catch (Exception $e) {
                 echo "Fallo al mostrar: (" . $e->getMessage() . ") <br>";
             }
             
+            $resultados->free_result();
             $consulta->close();
             self::$conexion->close();
         }
@@ -47,32 +47,33 @@ class conexion{
             $consulta=self::$conexion->prepare(constantes::$selectUsuarioConcreto);
 
             try {
-                $stmt=mysqli_prepare(self::$conexion,$consulta);
-                mysqli_stmt_bind_param($stmt,'s',$idUsuario);
-                mysqli_stmt_execute($stmt);
-                $resultados=mysqli_stmt_get_result($stmt);
+                $stmt=self::$conexion->prepare($consulta);
+                $stmt->bind_param('s',$idUsuario);
+                $stmt->execute();
+                $resultados=$stmt->get_result();
 
-                while ($fila=mysqli_fetch_array($resultados)){
+                while ($fila=$resultados->fetch_array()){
                     print_r($fila);
                 }
             } catch (Exception $e) {
                 echo "Fallo al mostrar: (" . $e->getMessage() . ") <br>";
             }
             
+            $resultados->free_result();
             $consulta->close();
             self::$conexion->close();
         }
     }
 
     //Creación de usuario
-    static function crearUsuario(){
+    static function crearUsuario(){ 
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$crearUsuario);
-        $stmt=mysqli_prepare(self::$conexion,$query);
-        mysqli_stmt_bind_param($stmt,'isssii');
+        $stmt=self::$conexion->prepare($query);
+        $stmt->bind_param('isssii');
         try {
-            echo mysqli_stmt_execute($stmt).'registro insertado.<br>';
+            $stmt->execute().'registro insertado.<br>';
         } catch (Exception $e) {
             echo "Fallo al insertar: (" . $e->getMessage() . ") <br>";
         }
@@ -85,11 +86,11 @@ class conexion{
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$modificarUsuario);
-        $stmt=mysqli_prepare(self::$conexion,$query);
-        mysqli_stmt_bind_param($stmt,'si',$nuevoNombreUsuario, $idUsuario);
+        $stmt=self::$conexion->prepare($query);
+        $stmt->bind_param('si',$nuevoNombreUsuario, $idUsuario);
 
         try {
-            echo mysqli_stmt_execute($stmt).'Modificación realizada correctamente.<br>'; 
+            $stmt->execute().'Modificación realizada correctamente.<br>'; 
         } catch (Exception $e) {
             echo "Fallo al modificar el usuario: (" . $e->getMessage() . ") <br>";
         }
@@ -118,12 +119,12 @@ class conexion{
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$crearPartida); 
-        $stmt=mysqli_prepare(self::$conexion,$query);
+        $stmt=self::$conexion->prepare($query);
 
-        mysqli_stmt_bind_param($stmt,'iissb');
+        $stmt->bind_param('iissb');
 
         try {
-            echo mysqli_stmt_execute($stmt).'registro insertado.<br>';
+            echo $stmt->execute().'registro insertado.<br>';
         } catch (Exception $e) {
             echo "Fallo al insertar: (" . $e->getMessage() . ") <br>";
         }
@@ -151,12 +152,12 @@ class conexion{
         if (self::comprobarConexion()==0) {
             $consulta=self::$conexion->prepare(constantes::$consultarPartidaConcreta);
 
-            $stmt=mysqli_prepare(self::$conexion,$consulta);
-            mysqli_stmt_bind_param($stmt,'s',$idPartida);
-            mysqli_stmt_execute($stmt);
-            $resultados=mysqli_stmt_get_result($stmt);
+            $stmt=self::$conexion->prepare($consulta);
+            $stmt->bind_param('s',$idPartida);
+            $stmt->execute();
+            $resultados=$stmt->get_result();
 
-            while ($fila=mysqli_fetch_array($resultados)){
+            while ($fila=$resultados->fetch_array()){
                 print_r($fila);
             }
 
@@ -170,11 +171,11 @@ class conexion{
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$modificarContrasenia);
-        $stmt=mysqli_prepare(self::$conexion,$query);
-        mysqli_stmt_bind_param($stmt,'ss',$datosRecibidos['contrasenia'], $datosRecibidos['correo']);
+        $stmt=self::$conexion->prepare($query);
+        $stmt->bind_param('ss',$datosRecibidos['contrasenia'], $datosRecibidos['correo']);
 
         try {
-            echo mysqli_stmt_execute($stmt).'Modificación realizada correctamente.<br>'; 
+            echo $stmt->execute().'Modificación realizada correctamente.<br>'; 
         } catch (Exception $e) {
             echo "Fallo al modificar el usuario: (" . $e->getMessage() . ") <br>";
         }
