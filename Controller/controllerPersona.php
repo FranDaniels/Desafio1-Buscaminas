@@ -27,7 +27,7 @@ class controllerPersona{
                 return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);
             }
         }else {
-            $cod=400;
+            $cod=422;
             $mes='Error en el usuario.';
             header('HTTP/1.1 '. $cod.' '.$mes);
                     
@@ -45,7 +45,7 @@ class controllerPersona{
                     
             return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);
         }else {
-            $cod=400;
+            $cod=422;
             $mes='Error con los jugadores';
             header('HTTP/1.1 '. $cod.' '.$mes);
                     
@@ -63,7 +63,7 @@ class controllerPersona{
                     
             return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);  
         }else {
-            $cod=400;
+            $cod=422;
             $mes='Error al modificar el usuario';
             header('HTTP/1.1 '. $cod.' '.$mes);
                     
@@ -79,7 +79,7 @@ class controllerPersona{
                     
             return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);  
         }else {
-            $cod=400;
+            $cod=422;
             $mes='Error borrar el usuario';
             header('HTTP/1.1 '. $cod.' '.$mes);
                     
@@ -97,7 +97,7 @@ class controllerPersona{
                     
             return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]); 
         }else {
-            $cod=400;
+            $cod=422;
             $mes='Error al crear el jugador';
             header('HTTP/1.1 '. $cod.' '.$mes);
                     
@@ -115,7 +115,7 @@ class controllerPersona{
                     
             return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);  
         }else {
-            $cod=400;
+            $cod=422;
             $mes='Error al modificar el usuario';
             header('HTTP/1.1 '. $cod.' '.$mes);
                     
