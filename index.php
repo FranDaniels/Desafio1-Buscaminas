@@ -48,6 +48,9 @@ unset($argus[0]);
                                         }
                                         break;
                                     case 'modificar':
+                                        if (controllerPersona::actualizarJugador($argus[5],$argus[6])) {
+                                            # code...
+                                        }
                                     case 'eliminar':
                                     case 'cambio':
                                 }
