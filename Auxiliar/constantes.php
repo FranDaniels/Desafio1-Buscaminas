@@ -12,7 +12,7 @@ class constantes{
     static $consultarPartidaConcreta="SELECT * FROM persona WHERE idPartida = ?";
     
     //Creación
-    static $crearUsuario="INSERT INTO persona (idUsuario,nombre,contrasenia,correo,partidasJugadas,partidasGanadas) VALUES (?,?,?,?,?,?)";
+    static $crearUsuario="INSERT INTO persona (idUsuario,nombre,contrasenia,correo,partidasJugadas,partidasGanadas,administrador) VALUES (?,?,?,?,?,?,?)";
     static $crearPartida="INSERT INTO partida (idPartida,idUsuario,tableroOculto,tableroMostrado,finalizado) VALUES (?,?,?,?,?)";
 
     //Modificación

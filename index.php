@@ -49,7 +49,15 @@ unset($argus[0]);
                                         break;
                                     case 'modificar':
                                         if (controllerPersona::actualizarJugador($argus[5],$argus[6])) {
-                                            # code...
+                                            $cod = 200;
+                                            $mes = 'Jugador actualizado';
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                        }else {
+                                            $cod = 406;
+                                            $mes = "Error al crear el jugador";
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                         }
                                     case 'eliminar':
                                     case 'cambio':
