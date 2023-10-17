@@ -23,9 +23,9 @@ class conexion{
             $consulta=self::$conexion->prepare(constantes::$selectTodosUsuarios);
 
             try {
-                $stmt=self::$conexion->prepare($consulta);
-                $stmt->execute();
-                $resultados=$stmt->get_result();
+                
+                $consulta->execute();
+                $resultados=$consulta->get_result();
                 $personas=[];
 
                 while ($fila=$resultados->fetch_array()){
@@ -40,7 +40,7 @@ class conexion{
             $consulta->close();
             self::$conexion->close();
         }
-        return $persona;
+        return $personas;
     }
 
     //Consulta de usuario en concreto
@@ -89,11 +89,11 @@ class conexion{
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$modificarUsuario);
-        $stmt=self::$conexion->prepare($query);
-        $stmt->bind_param('si',$nuevoCorreo, $correo);
+    
+        $query->bind_param('ss',$nuevoCorreo, $correo);
 
         try {
-            $stmt->execute().'Modificación realizada correctamente.<br>'; 
+            $query->execute(); 
         } catch (Exception $e) {
             echo "Fallo al modificar el usuario: (" . $e->getMessage() . ") <br>";
         }
@@ -105,13 +105,13 @@ class conexion{
     //Borrado de usuario
     static function borrarUsuario($correo){
         self::comprobarConexion();
-
-        $query=self::$conexion->prepare(constantes::$borrarUsuario);
-        $stmt=self::$conexion->prepare($query);
-        $stmt->bind_param('i', $correo);
+    
+        $query = self::$conexion->prepare(constantes::$borrarUsuario);
+    
+        $query->bind_param('s', $correo);
+    
         try {
-            $stmt->execute();
-            echo "Borrado correctamente <br>";
+            $query->execute();
         } catch (Exception $e) {
             echo "Fallo al borrar: (" . $e->getMessage() . ") <br>";
         }
@@ -176,19 +176,18 @@ class conexion{
     }
 
     //Cambiar contraseña de usuario
-    static function modificarContraseña($correo,$contrasenia){
+    static function modificarContraseña($correo, $nuevaContrasenia) {
         self::comprobarConexion();
-
-        $query=self::$conexion->prepare(constantes::$modificarContrasenia);
-        $stmt=self::$conexion->prepare($query);
-        $stmt->bind_param('ss',$correo,$contrasenia);
-
+    
+        $query = self::$conexion->prepare(constantes::$modificarContrasenia);
+        $query->bind_param('ss', $nuevaContrasenia, $correo);
+    
         try {
-            echo $stmt->execute().'Modificación realizada correctamente.<br>'; 
+            $query->execute();
         } catch (Exception $e) {
             echo "Fallo al modificar el usuario: (" . $e->getMessage() . ") <br>";
         }
-
+    
         $query->close();
         self::$conexion->close();
     }
