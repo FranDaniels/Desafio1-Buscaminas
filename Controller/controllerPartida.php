@@ -23,8 +23,8 @@ class controllerPartida{
         }
     }
 
-    public static function consultarPartidaCreada($datosRecibidos){
-        $partidaIniciada=conexion::consultarPartida($datosRecibidos['id']);
+    public static function consultarPartidaCreada($idpartida){
+        $partidaIniciada=conexion::consultarPartida($idpartida);
 
         if ($partidaIniciada['finalizado']==1) {
             $cod=202;

@@ -73,7 +73,7 @@ class conexion{
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$crearUsuario);
-        $query->bind_param('isssiib', $idUsu, $nombre, $contrasenia, $correo, $partidasJugadas, $partidasGanadas, $admin);
+        $query->bind_param('isssiii', $idUsu, $nombre, $contrasenia, $correo, $partidasJugadas, $partidasGanadas, $admin);
 
         try {
             $query->execute();
@@ -126,7 +126,7 @@ class conexion{
         $query=self::$conexion->prepare(constantes::$crearPartida); 
         $stmt=self::$conexion->prepare($query);
 
-        $stmt->bind_param('iissb',$partida);
+        $stmt->bind_param('iissi',$partida);
 
         try {
             echo $stmt->execute().'registro insertado.<br>';
@@ -136,6 +136,8 @@ class conexion{
         $query->close();
         self::$conexion->close();
     }
+
+    
 
     //Borrar partida
     static function borrarPartida($idPartida){
