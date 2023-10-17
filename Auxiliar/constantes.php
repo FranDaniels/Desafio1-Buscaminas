@@ -8,7 +8,7 @@ class constantes{
 
     //Consultas
     static $selectTodosUsuarios="SELECT * FROM jugador";
-    static $selectUsuarioConcreto="SELECT * FROM persona WHERE idUsuario = ?";
+    static $selectUsuarioConcreto="SELECT * FROM persona WHERE correo = ?";
     static $consultarPartidaConcreta="SELECT * FROM persona WHERE idPartida = ?";
     
     //Creación
@@ -20,7 +20,7 @@ class constantes{
     static $modificarContrasenia="UPDATE persona SET contrasenia = ? WHERE correo = ?";
 
     //Borrado
-    static $borrarUsuario="DELETE FROM persona WHERE idUsuario = '?'";
+    static $borrarUsuario="DELETE FROM persona WHERE correo = '?'";
     static $borrarPartida="DELETE FROM partida WHERE idPartida = '?'";
 
 }   
