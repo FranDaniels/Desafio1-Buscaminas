@@ -41,14 +41,14 @@ class conexion{
     }
 
     //Consulta de usuario en concreto
-    static function consultarUsuario($idUsuario){
+    static function consultarUsuario($correo){
         
         if (self::comprobarConexion()==0) {
             $consulta=self::$conexion->prepare(constantes::$selectUsuarioConcreto);
 
             try {
                 $stmt=self::$conexion->prepare($consulta);
-                $stmt->bind_param('s',$idUsuario);
+                $stmt->bind_param('s',$correo);
                 $stmt->execute();
                 $resultados=$stmt->get_result();
 
@@ -66,12 +66,12 @@ class conexion{
     }
 
     //Creación de usuario
-    static function crearUsuario(){ 
+    static function crearUsuario($usuario){ 
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$crearUsuario);
         $stmt=self::$conexion->prepare($query);
-        $stmt->bind_param('isssii');
+        $stmt->bind_param('isssii',$usuario);
         try {
             $stmt->execute().'registro insertado.<br>';
         } catch (Exception $e) {
@@ -82,12 +82,12 @@ class conexion{
     }
 
     //Modificar usuario
-    static function modificarUsuario($idUsuario,$nuevoNombreUsuario){
+    static function modificarUsuario($correo,$nuevoCorreo){
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$modificarUsuario);
         $stmt=self::$conexion->prepare($query);
-        $stmt->bind_param('si',$nuevoNombreUsuario, $idUsuario);
+        $stmt->bind_param('si',$nuevoCorreo, $correo);
 
         try {
             $stmt->execute().'Modificación realizada correctamente.<br>'; 
@@ -100,12 +100,12 @@ class conexion{
     }
 
     //Borrado de usuario
-    static function borrarUsuario($idUsuario){
+    static function borrarUsuario($correo){
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$borrarUsuario);
         $stmt=self::$conexion->prepare($query);
-        $stmt->bind_param('i', $idUsuario);
+        $stmt->bind_param('i', $correo);
         try {
             $stmt->execute();
             echo "Borrado correctamente <br>";
@@ -117,13 +117,13 @@ class conexion{
     }
 
     //Creación de nueva partida
-    static function insertarPartida(){
+    static function insertarPartida($partida){
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$crearPartida); 
         $stmt=self::$conexion->prepare($query);
 
-        $stmt->bind_param('iissb');
+        $stmt->bind_param('iissb',$partida);
 
         try {
             echo $stmt->execute().'registro insertado.<br>';
@@ -171,12 +171,12 @@ class conexion{
     }
 
     //Cambiar contraseña de usuario
-    static function modificarContraseña($datosRecibidos){
+    static function modificarContraseña($correo,$contrasenia){
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$modificarContrasenia);
         $stmt=self::$conexion->prepare($query);
-        $stmt->bind_param('ss',$datosRecibidos['contrasenia'], $datosRecibidos['correo']);
+        $stmt->bind_param('ss',$correo,$contrasenia);
 
         try {
             echo $stmt->execute().'Modificación realizada correctamente.<br>'; 
