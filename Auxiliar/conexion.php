@@ -18,7 +18,7 @@ class conexion{
 
     //Consultar varios usuarios
     public static function getJugadores(){
-
+        $persona=null;
         if (self::comprobarConexion()==0) {
             $consulta=self::$conexion->prepare(constantes::$selectTodosUsuarios);
 
@@ -26,9 +26,11 @@ class conexion{
                 $stmt=self::$conexion->prepare($consulta);
                 $stmt->execute();
                 $resultados=$stmt->get_result();
+                $personas=[];
 
                 while ($fila=$resultados->fetch_array()){
-                    print_r($fila);
+                    $persona = new Persona($fila[0], $fila[1], $fila[2], $fila[3], $fila[4], $fila[5], $fila[6]);
+                    array_push($personas,$persona);
                 }
             } catch (Exception $e) {
                 echo "Fallo al mostrar: (" . $e->getMessage() . ") <br>";
@@ -38,22 +40,22 @@ class conexion{
             $consulta->close();
             self::$conexion->close();
         }
+        return $persona;
     }
 
     //Consulta de usuario en concreto
     static function consultarUsuario($correo){
-        
+        $persona=null;
         if (self::comprobarConexion()==0) {
             $consulta=self::$conexion->prepare(constantes::$selectUsuarioConcreto);
 
             try {
-                $stmt=self::$conexion->prepare($consulta);
-                $stmt->bind_param('s',$correo);
-                $stmt->execute();
-                $resultados=$stmt->get_result();
+                $consulta->bind_param('s',$correo);
+                $consulta->execute();
+                $resultados=$consulta->get_result();
 
                 while ($fila=$resultados->fetch_array()){
-                    print_r($fila);
+                    $persona = new Persona($fila[0], $fila[1], $fila[2], $fila[3], $fila[4], $fila[5], $fila[6]);
                 }
             } catch (Exception $e) {
                 echo "Fallo al mostrar: (" . $e->getMessage() . ") <br>";
@@ -63,17 +65,18 @@ class conexion{
             $consulta->close();
             self::$conexion->close();
         }
+        return $persona;
     }
 
     //Creación de usuario
-    static function crearUsuario($usuario){ 
+    static function crearUsuario($idUsu,$nombre,$contrasenia,$correo,$partidasJugadas,$partidasGanadas,$admin){ 
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$crearUsuario);
-        $stmt=self::$conexion->prepare($query);
-        $stmt->bind_param('isssii',$usuario);
+        $query->bind_param('isssiib', $idUsu, $nombre, $contrasenia, $correo, $partidasJugadas, $partidasGanadas, $admin);
+
         try {
-            $stmt->execute().'registro insertado.<br>';
+            $query->execute();
         } catch (Exception $e) {
             echo "Fallo al insertar: (" . $e->getMessage() . ") <br>";
         }

@@ -5,12 +5,12 @@ require_once('Auxiliar/conexion.php');
 
 class controllerPersona{
 
-    public static function login($datosRecibidos){
-        $jugador=conexion::consultarUsuario($datosRecibidos['correo']);
+    public static function login($correo,$contrasenia){
+        $jugador=conexion::consultarUsuario($correo);
             
         if ($jugador instanceof persona) {
-            if ($jugador->getCorreo()==$datosRecibidos['correo']) {
-                if ($jugador->getContrasenia()==md5($datosRecibidos['contrasenia'])) {
+            if ($jugador->getCorreo()==$correo) {
+                if ($jugador->getContrasenia()==($contrasenia)) {
                     return $jugador;
                 }else {
                     $cod=400;
@@ -87,21 +87,19 @@ class controllerPersona{
         }
     }
 
-    public static function crearJugador($datosRecibidos){
-        $jugador=factoria::crearUsuario(0,$datosRecibidos['nombre'],$datosRecibidos['contrasenia'],$datosRecibidos['correo'],0,0,0);
+    public static function crearJugador($nombre, $contrasenia, $correo, $admin){
+        if (conexion::crearUsuario(0, $nombre, $contrasenia, $correo, 0, 0, $admin)) {
+            $cod = 200;
+            $mes = 'Todo OK';
+            header('HTTP/1.1 ' . $cod . ' ' . $mes);
 
-        if (conexion::crearUsuario($jugador)) {
-            $cod=200;
-            $mes='Todo OK';
-            header('HTTP/1.1 '. $cod.' '.$mes);
-                    
-            return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]); 
-        }else {
-            $cod=422;
-            $mes='Error al crear el jugador';
-            header('HTTP/1.1 '. $cod.' '.$mes);
-                    
-            return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]); 
+            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+        } else {
+            $cod = 422;
+            $mes = 'Error al crear el jugador';
+            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+
+            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
         }
     }
 

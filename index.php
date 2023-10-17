@@ -20,7 +20,7 @@ unset($argus[0]);
             echo json_encode(['cod'=>$cod,
                                 'mes'=>$mes]);
         }else {
-            if (count($argus)>5) {
+            if (count($argus)>20) {
                 $cod=406;
                 $mes="Hay demasiados argumentos";
                 header('HTTP/1.1 '.$cod.' '.$mes);
@@ -29,10 +29,28 @@ unset($argus[0]);
             }else {
                 switch($argus[1]){
                     case 'admin':
-                        $resultadoLogin=controllerPersona::login($argus[2],$argus[3]);
-                        if ($resultadoLogin instanceof persona) {
-                            if ($resultadoLogin->getAdministrador()==1) {
-                                # code...
+                        if ($persona=controllerPersona::login($argus[2],$argus[3])) {
+                            if ($persona->getAdministrador()==1) {
+                                switch($argus[4]){
+                                    case 'listar':
+
+                                    case 'registrar':
+                                        if ($jugador = controllerPersona::crearJugador($argus[5], $argus[6], $argus[7], $argus[8])) {
+                                            $cod = 200;
+                                            $mes = 'Usuario creado';
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                        } else {
+                                            $cod = 406;
+                                            $mes = "Error al crear el jugador";
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                        }
+                                        break;
+                                    case 'modificar':
+                                    case 'eliminar':
+                                    case 'cambio':
+                                }
                             }else {
                                 $cod=406;
                                 $mes="Este usuario no es administrador";
