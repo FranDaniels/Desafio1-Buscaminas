@@ -33,7 +33,18 @@ unset($argus[0]);
                             if ($persona->getAdministrador()==1) {
                                 switch($argus[4]){
                                     case 'listar':
-
+                                        if ($personas=controllerPersona::obtenerJugadores()) {
+                                            $cod = 200;
+                                            $mes = 'Usuarios listados';
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                        }else {
+                                            $cod = 406;
+                                            $mes = "Error al crear el jugador";
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                        }
+                                        break;
                                     case 'registrar':
                                         if ($jugador = controllerPersona::crearJugador($argus[5], $argus[6], $argus[7], $argus[8])) {
                                             $cod = 200;
@@ -55,12 +66,37 @@ unset($argus[0]);
                                             return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
                                         }else {
                                             $cod = 406;
-                                            $mes = "Error al crear el jugador";
+                                            $mes = "Error al modificar el jugador";
                                             header('HTTP/1.1 ' . $cod . ' ' . $mes);
                                             echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                         }
+                                        break;
                                     case 'eliminar':
+                                        if (controllerPersona::borrarJugador($argus[5])) {
+                                            $cod = 200;
+                                            $mes = 'Jugador eliminado';
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                        }else {
+                                            $cod = 406;
+                                            $mes = "Error al borrar el jugador";
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                        }
+                                        break;
                                     case 'cambio':
+                                        if (controllerPersona::actualizarContrasenia($argus[5],$argus[6])) {
+                                            $cod = 200;
+                                            $mes = 'Contraseña actualizada';
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                        }else {
+                                            $cod = 406;
+                                            $mes = "Error al actualizar la contraseña";
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                        }
+                                        break;
                                 }
                             }else {
                                 $cod=406;
@@ -79,7 +115,23 @@ unset($argus[0]);
                         break;
                     case 'user':
                         if (controllerPersona::login($argus[2],$argus[3])) {
-                            
+                            switch($argus[4]){
+                                case 'cambio':
+                                    if (controllerPersona::actualizarContrasenia($argus[5],$argus[6])) {
+                                        $cod = 200;
+                                        $mes = 'Contraseña actualizada';
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                    }else {
+                                        $cod = 406;
+                                        $mes = "Error al actualizar la contraseña";
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                    }
+                                    break;
+                                case 'ranking':
+                                    break;
+                            }
                         }
                         break;
                 }

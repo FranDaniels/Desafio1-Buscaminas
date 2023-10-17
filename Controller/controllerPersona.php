@@ -70,8 +70,8 @@ class controllerPersona{
         }
     }
 
-    public static function borrarJugador($datosRecibidos){
-        if (conexion::borrarUsuario($datosRecibidos['correo'])) {
+    public static function borrarJugador($correo){
+        if (conexion::borrarUsuario($correo)) {
             $cod=200;
             $mes='Todo OK';
             header('HTTP/1.1 '. $cod.' '.$mes);
@@ -102,9 +102,9 @@ class controllerPersona{
         }
     }
 
-    public static function actualizarContrasenia($datosRecibidos){
+    public static function actualizarContrasenia($correo,$nuevaContrasenia){
 
-        if (conexion::modificarUsuario($datosRecibidos['correo'],$datosRecibidos['contrasenia'])) {
+        if (conexion::modificarContraseña($correo,$nuevaContrasenia)) {
             $cod=200;
             $mes='Todo OK';
             header('HTTP/1.1 '. $cod.' '.$mes);
