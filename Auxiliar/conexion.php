@@ -104,8 +104,10 @@ class conexion{
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$borrarUsuario);
+        $stmt=self::$conexion->prepare($query);
+        $stmt->bind_param('i', $idUsuario);
         try {
-            mysqli_query(self::$conexion,$query);
+            $stmt->execute();
             echo "Borrado correctamente <br>";
         } catch (Exception $e) {
             echo "Fallo al borrar: (" . $e->getMessage() . ") <br>";
@@ -136,8 +138,10 @@ class conexion{
     static function borrarPartida($idPartida){
         if (self::comprobarConexion()==0) {
             $query=self::$conexion->prepare(constantes::$borrarPartida);    
+            $stmt=self::$conexion->prepare($query);
+            $stmt->bind_param('i', $idPartida);
             try {
-                mysqli_query(self::$conexion,$query);
+                $stmt->execute();
             } catch (Exception $e) {
                 echo "Error al borrar: (" . $e->getMessage() . ")";
             }

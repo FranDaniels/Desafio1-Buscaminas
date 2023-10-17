@@ -64,10 +64,10 @@ class factoria{
      * @param  mixed $cantBombas
      * @return void
      */
-    public static function creacionPartida($idPartida,$idJugador,$tamanioTablero,$cantBombas){
+    public static function creacionPartida($idJugador,$tamanioTablero,$cantBombas){
         $tableroResuelto=factoria::crearTableroRelleno($tamanioTablero,$cantBombas);
         $tableroJugador=factoria::crearTableroNormal($tamanioTablero);
-        $partida=factoria::crearPartida($idPartida,$idJugador,$tableroResuelto,$tableroJugador,false);//Preguntar sobre el idPartida a Fernando
+        $partida=factoria::crearPartida('null',$idJugador,$tableroResuelto,$tableroJugador,false);
 
         return $partida;
     }
