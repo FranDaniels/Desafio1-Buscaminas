@@ -56,7 +56,7 @@ class controllerPersona{
     public static function actualizarJugador($datosRecibidos){
         $jugador=factoria::crearUsuario($datosRecibidos['id'],$datosRecibidos['nombre'],$datosRecibidos['contrasenia'],$datosRecibidos['correo'],0,0,$datosRecibidos['administrador']);
 
-        if (conexion::modificarUsuario($jugador,$datosRecibidos['nuevoNombre'])) {
+        if (conexion::modificarUsuario($jugador,$datosRecibidos['nuevoCorreo'])) {
             $cod=200;
             $mes='Todo OK';
             header('HTTP/1.1 '. $cod.' '.$mes);
@@ -106,9 +106,8 @@ class controllerPersona{
     }
 
     public static function actualizarContrasenia($datosRecibidos){
-        $jugador=factoria::crearUsuario($datosRecibidos['id'],$datosRecibidos['nombre'],$datosRecibidos['contrasenia'],$datosRecibidos['correo'],0,0,$datosRecibidos['administrador']);
 
-        if (conexion::modificarUsuario($jugador,$datosRecibidos['nuevoNombre'])) {
+        if (conexion::modificarUsuario($datosRecibidos['correo'],$datosRecibidos['contrasenia'])) {
             $cod=200;
             $mes='Todo OK';
             header('HTTP/1.1 '. $cod.' '.$mes);
