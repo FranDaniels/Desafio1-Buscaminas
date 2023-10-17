@@ -1,10 +1,10 @@
 <?php
 
 class constantes{
-    static $host='localhost';
+    static $host='127.0.0.1';
     static $user='root';
     static $password='';
-    static $url='jdbc:mysql://localhost/buscaminas';
+    static $url='buscaminas';
 
     //Consultas
     static $selectTodosUsuarios="SELECT * FROM jugador";
