@@ -9,6 +9,9 @@ header("Content-Type:application/json");
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 $paths = $_SERVER['REQUEST_URI'];
 
+$content = file_get_contents('php://input');
+$decode = json_decode($content, true);
+
 $argus=explode('/',$paths);
 unset($argus[0]);
 
