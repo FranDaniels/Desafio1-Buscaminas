@@ -118,4 +118,20 @@ class controllerPersona{
             return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);
         }
     }
+
+    public static function todoElRanking(){
+        if (conexion::todoRanking()) {
+            $cod=200;
+            $mes='Todo OK';
+            header('HTTP/1.1 '. $cod.' '.$mes);
+                    
+            return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);
+        }else {
+            $cod=422;
+            $mes='Error al mostrar el ranking';
+            header('HTTP/1.1 '. $cod.' '.$mes);
+                    
+            return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);
+        }
+    }
 }
