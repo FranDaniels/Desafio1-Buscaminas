@@ -299,7 +299,7 @@ class conexion{
     public static function todoRanking(){
         $persona=null;
         if (self::comprobarConexion()==0) {
-            $consulta=self::$conexion->prepare(constantes::$selectTodosUsuarios);
+            $consulta=self::$conexion->prepare(constantes::$ranking);
 
             try {
                 
