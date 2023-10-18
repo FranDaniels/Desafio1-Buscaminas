@@ -1,13 +1,43 @@
 <h1 align="center">🚩Desafío 1 Buscaminas💣</h1>
 
 <h4 align="center">
-:construction: Proyecto en construcción :construction:
+:white_check_mark: Proyecto Completado:white_check_mark:
 </h4>
+
+<h4>Proyecto realizado por:</h4>
+
++ [Francisco Álvarez Bellón](https://github.com/FranDaniels)
 
 <h2 align="center">Manual de Usuario</h2>
 
 Inicializaremos el servidor con el comando:<br>
 ` php -S 127.0.0.1:234`
+
+Los usuarios y los administradores antes de poder realizar cualquier operación deberán iniciar sesión de la siguiente forma:
+
+<h4>Administrador</h4>
+
+```
+http://127.0.0.1:234/admin/correo/contrasenia
+```
+
+Ejemplo:
+
+```
+http://127.0.0.1:234/admin/fran/hola123
+```
+
+<h4>Usuario</h4>
+
+```
+http://127.0.0.1:234/user/correo/contrasenia
+```
+
+Ejemplo:
+
+```
+http://127.0.0.1:234/user/fran/hola123
+```
 
 <h2 align="center">🛠Manual de Administrador🛠</h2>
 <h3>Enunciado</h3>
@@ -22,23 +52,98 @@ Nuestra aplicación tendrá los siguientes roles: administrador y jugador.</p>
 <h4>El administrador se encargará de:</h4>
 
 + Listar los usuarios.
+
+Para poder listar a los usuarios el Administrador necesitará escribir en la url con el método ``GET``:
+``` 
+http://127.0.0.1:234/admin/user1/admin123/listar
+```
 + Buscar un usuario en específico.
+
+Para poder listar a un usuario en específico el Administrador necesitará escribir en la url con el método ``GET``: 
+```
+http://127.0.0.1:234/admin/user1/admin123/listar/user1
+```
 + Registrar los usuarios.
+
+Para poder registrar a los usuarios el Administrador necesitará escribir en la url con el método ``POST``: 
+```
+http://127.0.0.1:234/admin/user1/admin123/registrar/nombre/contrasenia/correo/admin
+```
 + Modificar los usuarios.
+
+Para poder modificar a los usuarios el Administrador necesitará escribir en la url con el método ``PUT``:
+```
+http://127.0.0.1:234/admin/user1/admin123/modificar/correo/correoNuevo
+```
 + Eliminar los usuarios.
+
+Para poder eliminar a los usuarios el Administrador necesitará escribir en la url con el método ``DELETE``:
+
+```
+http://127.0.0.1:234/admin/user1/admin123/eliminar/correo
+```
 + Cambiar la contraseña de un usuario en concreto.
+
+Para poder cambiar la contraseña a los usuarios el Administrador necesitará escribir en la url con el método ``PUT``:
+
+```
+http://127.0.0.1:234/admin/user1/admin123/cambio/correo/nuevaContrasenia
+```
 
 <h3>Usuario</h3>
 <h4>El usuario se encargará de:</h4>
 
 + Crear partidas personalizadas o estándar.
-+ Poder crear el tamaño del tablero y las minas especificándolo en la URL.
+
++ Poder crear el tamaño del tablero y las minas especificándolo en la URL con el método ``POST``:
+
+Para poder crear la partida y el tablero el usuario deberá escribir en la URL:
+```
+http://127.0.0.1:234/user/user1/admin123/crearPartida/10/3
+```
+
 + Solicitar cambio de contraseña.
+
+Para poder modificar el usuario su contraseña necesitará escribir en la URL con el método ``PUT``:
+
+```
+http://127.0.0.1:234/user/user1/admin123/cambio/correo/nuevaContrasenia
+```
+
 + Solicitar ranking de jugadores.
+
+Para poder ver el ranking de jugadores según sus partidas ganadas necesitará escribir en la URL con el método ``GET``:
+
+```
+http://127.0.0.1:234/user/user1/admin123/ranking
+```
+
 + Rendirse.
+
+Para poder rendirse el usuario necesitará escribir en la URL con el método ``PUT``:
+
+```
+http://127.0.0.1:234/user/user1/admin123/rendirse
+```
+
 + Jugar al buscaminas.
+
+Para poder jugar al buscaminas el usuario necesitará escribir en la URL con el método ``POST``:
+
+```
+http://127.0.0.1:234/user/user1/admin123/jugar/1
+```
+
+En el body deberá haber JSON y en él necesitará escribir la posición en la que quiere buscar en el buscaminas, como por ejemplo:
+
+``
+{
+  "pos": 5
+}
+``
 
 <h3>Programa</h3>
 <h4>El programa se encargará de:</h4>
 
 + En el caso que el usuario no especifique el tamaño de tablero y minas desde la URL, el programa creará uno con tamaño y número de minas predefinido.
+
