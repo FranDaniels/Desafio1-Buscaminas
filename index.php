@@ -112,7 +112,7 @@ unset($argus[0]);
             echo json_encode(['cod'=>$cod,
                                 'mes'=>$mes]);
         }else {
-            if (count($argus)>5) {
+            if (count($argus)>9) {
                 $cod=406;
                 $mes="Hay demasiados argumentos";
                 header('HTTP/1.1 '.$cod.' '.$mes);
@@ -154,11 +154,21 @@ unset($argus[0]);
                         }
                         break;
                     case 'user':
-                                $cod=406;
-                                $mes="El usuario no tiene permisos aquí";
-                                header('HTTP/1.1 '.$cod.' '.$mes);
-                                echo json_encode(['cod' => $cod,
-                                                    'mes' => $mes]);
+                        if (controllerPersona::login($argus[2],$argus[3])) {
+                            switch($argus[4]){
+                                case 'crearPartida':
+                                    if (controllerPartida::crearPartida($argus[2],$argus[4],$argus[5],$argus[6])) {
+                                        $cod = 200;
+                                        $mes = 'Partida creada';
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                    }else {
+                                        $cod = 406;
+                                        $mes = "Error al actualizar la contraseña";
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                    }
+                                    break;   
                         break;
                 }
             }
@@ -173,7 +183,7 @@ unset($argus[0]);
             echo json_encode(['cod'=>$cod,
                                 'mes'=>$mes]);
         }else {
-            if (count($argus)>5) {
+            if (count($argus)>9) {
                 $cod=406;
                 $mes="Hay demasiados argumentos";
                 header('HTTP/1.1 '.$cod.' '.$mes);
@@ -271,7 +281,7 @@ unset($argus[0]);
             echo json_encode(['cod'=>$cod,
                                 'mes'=>$mes]);
         }else {
-            if (count($argus)>5) {
+            if (count($argus)>9) {
                 $cod=406;
                 $mes="Hay demasiados argumentos";
                 header('HTTP/1.1 '.$cod.' '.$mes);
@@ -330,4 +340,6 @@ unset($argus[0]);
             }
         }
     }
-
+      
+}
+}
