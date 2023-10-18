@@ -45,6 +45,19 @@ unset($argus[0]);
                                             echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                         }
                                         break;
+                                    case 'buscar':
+                                        if (controllerPersona::busquedaEspecifica($argus[2])) {
+                                            $cod = 200;
+                                            $mes = 'Usuario encontrado';
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                        }else {
+                                            $cod = 406;
+                                            $mes = "Error al crear el jugador";
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                        }
+                                        break;
                                 }
                             }else {
                                 $cod=406;
