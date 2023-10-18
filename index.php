@@ -45,6 +45,61 @@ unset($argus[0]);
                                             echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                         }
                                         break;
+                                }
+                            }else {
+                                $cod=406;
+                                $mes="Este usuario no es administrador";
+                                header('HTTP/1.1 '.$cod.' '.$mes);
+                                echo json_encode(['cod' => $cod,
+                                                    'mes' => $mes]);
+                            }
+                        }else {
+                            $cod=406;
+                                $mes="Error al iniciar sesión";
+                                header('HTTP/1.1 '.$cod.' '.$mes);
+                                echo json_encode(['cod' => $cod,
+                                                    'mes' => $mes]);
+                        }
+                        break;
+                    case 'user':
+                        if (controllerPersona::login($argus[2],$argus[3])) {
+                            switch($argus[4]){
+                                case 'ranking':
+                                    break;
+                            }
+                        }else {
+                            $cod=406;
+                                $mes="Error al iniciar sesión";
+                                header('HTTP/1.1 '.$cod.' '.$mes);
+                                echo json_encode(['cod' => $cod,
+                                                    'mes' => $mes]);
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    if ($requestMethod=='POST') {
+        if (empty($argus[1])) {
+            $cod=406;
+            $mes='No hay argumentos';
+            header('HTTP/1.1 '.$cod.' '.$mes);
+            echo json_encode(['cod'=>$cod,
+                                'mes'=>$mes]);
+        }else {
+            if (count($argus)>5) {
+                $cod=406;
+                $mes="Hay demasiados argumentos";
+                header('HTTP/1.1 '.$cod.' '.$mes);
+                echo json_encode(['cod' => $cod,
+                                    'mes' => $mes]);
+            }else {
+                switch($argus[1]){
+                    case 'admin':
+                        if ($persona=controllerPersona::login($argus[2],$argus[3])) {
+                            if ($persona->getAdministrador()==1) {
+                                switch($argus[4]){
                                     case 'registrar':
                                         if ($jugador = controllerPersona::crearJugador($argus[5], $argus[6], $argus[7], $argus[8])) {
                                             $cod = 200;
@@ -58,6 +113,54 @@ unset($argus[0]);
                                             echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                         }
                                         break;
+                                }
+                            }else {
+                                $cod=406;
+                                $mes="Este usuario no es administrador";
+                                header('HTTP/1.1 '.$cod.' '.$mes);
+                                echo json_encode(['cod' => $cod,
+                                                    'mes' => $mes]);
+                            }
+                        }else {
+                            $cod=406;
+                                $mes="Error al iniciar sesión";
+                                header('HTTP/1.1 '.$cod.' '.$mes);
+                                echo json_encode(['cod' => $cod,
+                                                    'mes' => $mes]);
+                        }
+                        break;
+                    case 'user':
+                                $cod=406;
+                                $mes="El usuario no tiene permisos aquí";
+                                header('HTTP/1.1 '.$cod.' '.$mes);
+                                echo json_encode(['cod' => $cod,
+                                                    'mes' => $mes]);
+                        break;
+                }
+            }
+        }
+    }
+
+    if ($requestMethod=='PUT') {
+        if (empty($argus[1])) {
+            $cod=406;
+            $mes='No hay argumentos';
+            header('HTTP/1.1 '.$cod.' '.$mes);
+            echo json_encode(['cod'=>$cod,
+                                'mes'=>$mes]);
+        }else {
+            if (count($argus)>5) {
+                $cod=406;
+                $mes="Hay demasiados argumentos";
+                header('HTTP/1.1 '.$cod.' '.$mes);
+                echo json_encode(['cod' => $cod,
+                                    'mes' => $mes]);
+            }else {
+                switch($argus[1]){
+                    case 'admin':
+                        if ($persona=controllerPersona::login($argus[2],$argus[3])) {
+                            if ($persona->getAdministrador()==1) {
+                                switch($argus[4]){
                                     case 'modificar':
                                         if (controllerPersona::actualizarJugador($argus[5],$argus[6])) {
                                             $cod = 200;
@@ -67,19 +170,6 @@ unset($argus[0]);
                                         }else {
                                             $cod = 406;
                                             $mes = "Error al modificar el jugador";
-                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
-                                            echo json_encode(['cod' => $cod, 'mes' => $mes]);
-                                        }
-                                        break;
-                                    case 'eliminar':
-                                        if (controllerPersona::borrarJugador($argus[5])) {
-                                            $cod = 200;
-                                            $mes = 'Jugador eliminado';
-                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
-                                            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
-                                        }else {
-                                            $cod = 406;
-                                            $mes = "Error al borrar el jugador";
                                             header('HTTP/1.1 ' . $cod . ' ' . $mes);
                                             echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                         }
@@ -129,51 +219,12 @@ unset($argus[0]);
                                         echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                     }
                                     break;
-                                case 'ranking':
-                                    break;
                             }
                         }
                         break;
+                    }
                 }
             }
-        }
-    }
-
-    if ($requestMethod=='POST') {
-        if (empty($argus[1])) {
-            $cod=406;
-            $mes='No hay argumentos';
-            header('HTTP/1.1 '.$cod.' '.$mes);
-            echo json_encode(['cod'=>$cod,
-                                'mes'=>$mes]);
-        }else {
-            if (count($argus)>5) {
-                $cod=406;
-                $mes="Hay demasiados argumentos";
-                header('HTTP/1.1 '.$cod.' '.$mes);
-                echo json_encode(['cod' => $cod,
-                                    'mes' => $mes]);
-            }
-        }
-    }
-
-    if ($requestMethod=='PUT') {
-        if (empty($argus[1])) {
-            $cod=406;
-            $mes='No hay argumentos';
-            header('HTTP/1.1 '.$cod.' '.$mes);
-            echo json_encode(['cod'=>$cod,
-                                'mes'=>$mes]);
-        }else {
-            if (count($argus)>5) {
-                $cod=406;
-                $mes="Hay demasiados argumentos";
-                header('HTTP/1.1 '.$cod.' '.$mes);
-                echo json_encode(['cod' => $cod,
-                                    'mes' => $mes]);
-            }
-        }
-    }
 
     if ($requestMethod=='DELETE') {
         if (empty($argus[1])) {
@@ -190,9 +241,56 @@ unset($argus[0]);
                 echo json_encode(['cod' => $cod,
                                     'mes' => $mes]);
             }else {
-                # code...
+                switch($argus[1]){
+                    case 'admin':
+                        if ($persona=controllerPersona::login($argus[2],$argus[3])) {
+                            if ($persona->getAdministrador()==1) {
+                                switch($argus[4]){
+                                    case 'eliminar':
+                                        if (controllerPersona::borrarJugador($argus[5])) {
+                                            $cod = 200;
+                                            $mes = 'Jugador eliminado';
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                        }else {
+                                            $cod = 406;
+                                            $mes = "Error al borrar el jugador";
+                                            header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                            echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                        }
+                                        break;
+                                }
+                            }else {
+                                $cod=406;
+                                $mes="Este usuario no es administrador";
+                                header('HTTP/1.1 '.$cod.' '.$mes);
+                                echo json_encode(['cod' => $cod,
+                                                    'mes' => $mes]);
+                            }
+                        }else {
+                            $cod=406;
+                                $mes="Error al iniciar sesión";
+                                header('HTTP/1.1 '.$cod.' '.$mes);
+                                echo json_encode(['cod' => $cod,
+                                                    'mes' => $mes]);
+                        }
+                        break;
+                    case 'user':
+                        if (controllerPersona::login($argus[2],$argus[3])) {
+                            switch($argus[4]){
+                                case 'cambio':
+                                    $cod=406;
+                                    $mes="El usuario no tiene permisos aquí";
+                                    header('HTTP/1.1 '.$cod.' '.$mes);
+                                    echo json_encode(['cod' => $cod,
+                                                        'mes' => $mes]);
+                                    break;
+                            }
+                        }
+                        break;
+                    }
+                }
             }
         }
     }
-
 

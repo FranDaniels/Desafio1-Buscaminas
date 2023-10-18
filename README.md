@@ -48,7 +48,7 @@ http://127.0.0.1:234/admin/user1/admin123/registrar/nombre/contrasenia/correo/ad
 
 Para poder modificar a los usuarios el Administrador necesitará escribir en la url con el método PUT:
 ```
-http://127.0.0.1:234/admin/user1/admin123/modificar/correo/contrasenia
+http://127.0.0.1:234/admin/user1/admin123/modificar/correo/correoNuevo
 ```
 + Eliminar los usuarios.
 
@@ -62,7 +62,7 @@ http://127.0.0.1:234/admin/user1/admin123/eliminar/correo
 Para poder cambiar la contraseña a los usuarios el Administrador necesitará escribir en la url con el método GET:
 
 ```
-http://127.0.0.1:234/admin/user1/admin123/cambio/correo/contrasenia
+http://127.0.0.1:234/admin/user1/admin123/cambio/correo/nuevaContrasenia
 ```
 
 <h3>Usuario</h3>
