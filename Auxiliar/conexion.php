@@ -138,7 +138,7 @@ class conexion{
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$crearPartida); 
-        $query->bind_param('iissi',$idPartida,$idUsu,$tableroOculto,$tableroMostrado,$finalizado);
+        $query->bind_param('isssi',$idPartida,$idUsu,$tableroOculto,$tableroMostrado,$finalizado);
 
         try {
             echo $query->execute();
