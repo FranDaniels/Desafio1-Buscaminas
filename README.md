@@ -36,7 +36,7 @@ http://127.0.0.1:234/admin/user1/admin123/listar
 
 Para poder listar a un usuario en específico el Administrador necesitará escribir en la url con el método GET: 
 ```
-http://127.0.0.1:234/admin/user1/admin123/listar/1
+http://127.0.0.1:234/admin/user1/admin123/listar/user1
 ```
 + Registrar los usuarios.
 
@@ -59,7 +59,7 @@ http://127.0.0.1:234/admin/user1/admin123/eliminar/correo
 ```
 + Cambiar la contraseña de un usuario en concreto.
 
-Para poder cambiar la contraseña a los usuarios el Administrador necesitará escribir en la url con el método GET:
+Para poder cambiar la contraseña a los usuarios el Administrador necesitará escribir en la url con el método PUT:
 
 ```
 http://127.0.0.1:234/admin/user1/admin123/cambio/correo/nuevaContrasenia
@@ -69,11 +69,49 @@ http://127.0.0.1:234/admin/user1/admin123/cambio/correo/nuevaContrasenia
 <h4>El usuario se encargará de:</h4>
 
 + Crear partidas personalizadas o estándar.
-+ Poder crear el tamaño del tablero y las minas especificándolo en la URL.
+
+Para poder crear partidas el usuario necesitará escribir en la URL con el método POST:
+
+
+
++ Poder crear el tamaño del tablero y las minas especificándolo en la URL con el método POST:
+
+Para poder crear el tablero el usuario deberá escribir en la URL:
+```
+http://127.0.0.1:234/user/user1/admin123/tablero/10/3
+```
+
 + Solicitar cambio de contraseña.
+
+Para poder modificar el usuario su contraseña necesitará escribir en la URL con el método PUT:
+
+```
+http://127.0.0.1:234/user/user1/admin123/cambio/correo/nuevaContrasenia
+```
+
 + Solicitar ranking de jugadores.
+
+Para poder ver el ranking de jugadores según sus partidas ganadas necesitará escribir en la URL con el método GET:
+
+```
+http://127.0.0.1:234/user/user1/admin123/ranking
+```
+
 + Rendirse.
+
+Para poder rendirse el usuario necesitará escribir en la URL con el método PUT:
+
+```
+http://127.0.0.1:234/user/user1/admin123/rendirse
+```
+
 + Jugar al buscaminas.
+
+Para poder jugar al buscaminas el usuario necesitará escribir en la URL con el método POST:
+
+```
+http://127.0.0.1:234/user/user1/admin123/jugar/3
+```
 
 <h3>Programa</h3>
 <h4>El programa se encargará de:</h4>
