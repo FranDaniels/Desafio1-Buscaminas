@@ -5,10 +5,9 @@ require_once('Auxiliar/conexion.php');
 
 class controllerPartida{
 
-    public static function crearPartida($datosRecibidos){
-        $partida=factoria::creacionPartida(0,$datosRecibidos['id'],$datosRecibidos['tamanio'],$datosRecibidos['cantBombas']);
+    public static function crearPartida($tableroOculto,$tableroMostrado,$finalizado){
 
-        if (conexion::insertarPartida($partida)) {
+        if (conexion::insertarPartida(0,0,$tableroOculto,$tableroMostrado,$finalizado)) {
             $cod=202;
             $mes='Todo OK';
             header('HTTP/1.1 '. $cod.' '.$mes);
@@ -41,10 +40,9 @@ class controllerPartida{
         }
     }
 
-    public static function borrarPartida($datosRecibidos){
-        conexion::borrarPartida($datosRecibidos['id']);
+    public static function borrarPartida($idpartida){
 
-        if (conexion::borrarPartida($datosRecibidos['id'])) {
+        if (conexion::borrarPartida($idpartida)) {
             $cod=200;
             $mes='Todo OK';
             header('HTTP/1.1 '. $cod.' '.$mes);
@@ -53,6 +51,23 @@ class controllerPartida{
         }else {
             $cod=422;
             $mes='Error borrar la partida';
+            header('HTTP/1.1 '. $cod.' '.$mes);
+                    
+            return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);
+        }
+    }
+
+    public static function actualizarPartidaFinalizada($idpartida){
+
+        if (conexion::actualizarPartidaFinalizada($idpartida)) {
+            $cod=200;
+            $mes='Todo OK';
+            header('HTTP/1.1 '. $cod.' '.$mes);
+                    
+            return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]); 
+        }else {
+            $cod=422;
+            $mes='Error al modificar el usuario';
             header('HTTP/1.1 '. $cod.' '.$mes);
                     
             return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);
