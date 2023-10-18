@@ -19,7 +19,7 @@ class constantes{
     //Modificación
     static $modificarUsuario="UPDATE persona SET correo = ? WHERE correo = ?";
     static $modificarContrasenia="UPDATE persona SET contrasenia = ? WHERE correo = ?";
-    static $actualizarPartidaFinalizada="UPDATE partida SET finalizada = ? WHERE id = ?";
+    static $actualizarPartidaFinalizada="UPDATE partida SET finalizado = 1 WHERE idPartida = ?";
     static $actualizarGanadas="UPDATE partida SET partidasGanadas = partidasGanadas+1 WHERE id = ?";
     static $actualizarJugadas="UPDATE partida SET partidasJugadas = partidasJugadas+1 WHERE id = ?";
     static $rendirse="UPDATE partida SET finalizada = -1 WHERE id = ?";
