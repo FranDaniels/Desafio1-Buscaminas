@@ -142,6 +142,7 @@ class controllerPartida{
                         $cod=200;
                         $mes='Has ganado has encontrado todas las bombas';
                         $jsonControlador->send($cod,$mes);
+                        conexion::actualizarRankingPartidasGanadas($idpartida);
                         conexion::actualizarPartidaFinalizada($idpartida);
                         $finalizado=true;
                     }
