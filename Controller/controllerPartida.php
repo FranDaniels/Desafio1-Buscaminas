@@ -5,9 +5,9 @@ require_once('Auxiliar/conexion.php');
 
 class controllerPartida{
 
-    public static function crearPartida($idUsu,$tamanio,$cantBombas){
+    public static function crearPartida($idUsu,$idpartida,$tamanio,$cantBombas){
 
-        if (factoria::creacionPartida($idUsu,$tamanio,$cantBombas)) {
+        if (factoria::creacionPartida($idpartida,$idUsu,$tamanio,$cantBombas)) {
             $cod=202;
             $mes='Todo OK';
             header('HTTP/1.1 '. $cod.' '.$mes);

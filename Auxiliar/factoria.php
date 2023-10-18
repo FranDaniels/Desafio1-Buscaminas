@@ -43,32 +43,17 @@ class factoria{
         return $tableroRelleno;
     }
     
-    /**
-     * crearTableroNormal
-     *
-     * @param  mixed $tamanio
-     * @return void
-     */
     public static function crearTableroNormal($tamanio){
         $tableroNormal=implode('',array_fill(1,$tamanio,'-'));
 
         return $tableroNormal;
     }
     
-    /**
-     * creacionPartida
-     *
-     * @param  mixed $idPartida
-     * @param  mixed $idJugador
-     * @param  mixed $tamanioTablero
-     * @param  mixed $cantBombas
-     * @return void
-     */
-    public static function creacionPartida($idJugador,$tamanioTablero,$cantBombas){
+    public static function creacionPartida($idPartida,$idJugador,$tamanioTablero,$cantBombas){
         $tableroResuelto=factoria::crearTableroRelleno($tamanioTablero,$cantBombas);
         $tableroJugador=factoria::crearTableroNormal($tamanioTablero);
 
-        $partida=conexion::insertarPartida('null',$idJugador,$tableroResuelto,$tableroJugador,false);
+        $partida=conexion::insertarPartida($idPartida,$idJugador,$tableroResuelto,$tableroJugador,0);
 
         return $partida;
     }
