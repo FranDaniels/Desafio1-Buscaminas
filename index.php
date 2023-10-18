@@ -171,7 +171,19 @@ unset($argus[0]);
                                         header('HTTP/1.1 ' . $cod . ' ' . $mes);
                                         echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                     }
-                                    break;   
+                                    break;  
+                                case 'jugar':
+                                    if (controllerPartida::jugar($argus[5],$argus[2],$decode['pos'])) {
+                                        $cod = 200;
+                                        $mes = 'Jugando';
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                    } else {
+                                        $cod = 406;
+                                        $mes = "Error al jugar la partida";
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                    }
                         break;
                 }
             }
