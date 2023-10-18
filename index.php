@@ -65,6 +65,17 @@ unset($argus[0]);
                         if (controllerPersona::login($argus[2],$argus[3])) {
                             switch($argus[4]){
                                 case 'ranking':
+                                    if (controllerPersona::todoElRanking()) {
+                                        $cod = 200;
+                                        $mes = 'Ranking mostrado';
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                    }else {
+                                        $cod = 406;
+                                        $mes = "Error al mostrar el ranking";
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        echo json_encode(['cod' => $cod, 'mes' => $mes]);
+                                    }
                                     break;
                             }
                         }else {
