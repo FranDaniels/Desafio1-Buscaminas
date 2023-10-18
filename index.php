@@ -249,6 +249,11 @@ unset($argus[0]);
                                         $mes = 'Te has rendido';
                                         header('HTTP/1.1 ' . $cod . ' ' . $mes);
                                         return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                    }else {
+                                        $cod = 406;
+                                        $mes = "Error al rendirse";
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                     }
                                     break;
                             }
