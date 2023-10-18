@@ -53,6 +53,22 @@ class controllerPersona{
         }
     }
 
+    public static function busquedaEspecifica($correo){
+        if (conexion::consultarUsuario($correo)) {
+            $cod=200;
+            $mes='Todo OK';
+            header('HTTP/1.1 '. $cod.' '.$mes);
+                    
+            return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);
+        }else {
+            $cod=422;
+            $mes='Error con los jugadores';
+            header('HTTP/1.1 '. $cod.' '.$mes);
+                    
+            return json_encode(['Código'=>$cod, 'Mensaje'=>$mes]);
+        }
+    }
+
     public static function actualizarJugador($correo,$nuevoCorreo){
 
         if (conexion::modificarUsuario($correo,$nuevoCorreo)) {
