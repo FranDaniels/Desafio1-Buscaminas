@@ -1,8 +1,12 @@
 <h1 align="center">🚩Desafío 1 Buscaminas💣</h1>
 
 <h4 align="center">
-:construction: Proyecto en construcción :construction:
+:white_check_mark: Proyecto Completado:white_check_mark:
 </h4>
+
+<h4>Proyecto realizado por:</h4>
+
++ [Francisco Álvarez Bellón](https://github.com/FranDaniels)
 
 <h2 align="center">Manual de Usuario</h2>
 
