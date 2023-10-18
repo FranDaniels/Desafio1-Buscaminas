@@ -294,4 +294,33 @@ class conexion{
         $query->close();
         self::$conexion->close();
     }
+
+    //Consulta partidas ganadas
+    public static function todoRanking(){
+        $persona=null;
+        if (self::comprobarConexion()==0) {
+            $consulta=self::$conexion->prepare(constantes::$selectTodosUsuarios);
+
+            try {
+                
+                $consulta->execute();
+                $resultados=$consulta->get_result();
+                $personas=[];
+
+                while ($fila=$resultados->fetch_array()){
+                    $persona = new Persona($fila[0], $fila[1], $fila[2], $fila[3], $fila[4], $fila[5], $fila[6]);
+                    echo json_encode(['Nombre: ' => $persona->nombre,
+                    'Partidas Ganadas: '=>$persona->partidasGanadas]);
+                    array_push($personas,$persona);
+                }
+            } catch (Exception $e) {
+                echo "Fallo al mostrar: (" . $e->getMessage() . ") <br>";
+            }
+            
+            $resultados->free_result();
+            $consulta->close();
+            self::$conexion->close();
+        }
+        return $personas;
+    }
 }
