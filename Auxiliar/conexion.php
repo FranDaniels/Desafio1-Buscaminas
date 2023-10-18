@@ -30,6 +30,13 @@ class conexion{
 
                 while ($fila=$resultados->fetch_array()){
                     $persona = new Persona($fila[0], $fila[1], $fila[2], $fila[3], $fila[4], $fila[5], $fila[6]);
+                    echo json_encode(['Id: ' => $persona->id, 
+                    'Nombre: ' => $persona->nombre,
+                    'Contrasenia: '=>$persona->contrasenia,
+                    'Correo: '=>$persona->correo,
+                    'Partidas Jugadas: '=>$persona->partidasJugadas,
+                    'Partidas Ganadas: '=>$persona->partidasGanadas,
+                    'Administrador:' =>$persona->administrador]);
                     array_push($personas,$persona);
                 }
             } catch (Exception $e) {
@@ -120,16 +127,14 @@ class conexion{
     }
 
     //Creación de nueva partida
-    static function insertarPartida($partida){
+    static function insertarPartida($idPartida,$idUsu,$tableroOculto,$tableroMostrado,$finalizado){
         self::comprobarConexion();
 
         $query=self::$conexion->prepare(constantes::$crearPartida); 
-        $stmt=self::$conexion->prepare($query);
-
-        $stmt->bind_param('iissi',$partida);
+        $query->bind_param('iissi',$idPartida,$idUsu,$tableroOculto,$tableroMostrado,$finalizado);
 
         try {
-            echo $stmt->execute().'registro insertado.<br>';
+            echo $query->execute();
         } catch (Exception $e) {
             echo "Fallo al insertar: (" . $e->getMessage() . ") <br>";
         }
@@ -162,7 +167,7 @@ class conexion{
             $consulta=self::$conexion->prepare(constantes::$consultarPartidaConcreta);
 
             $stmt=self::$conexion->prepare($consulta);
-            $stmt->bind_param('s',$idPartida);
+            $stmt->bind_param('i',$idPartida);
             $stmt->execute();
             $resultados=$stmt->get_result();
 
@@ -186,6 +191,104 @@ class conexion{
             $query->execute();
         } catch (Exception $e) {
             echo "Fallo al modificar el usuario: (" . $e->getMessage() . ") <br>";
+        }
+    
+        $query->close();
+        self::$conexion->close();
+    }
+
+    //Actualizar partida finalizada
+    static function actualizarPartidaFinalizada($idPartida){
+        self::comprobarConexion();
+
+        $query=self::$conexion->prepare(constantes::$actualizarPartidaFinalizada);
+        $query->bind_param('i', $idPartida);
+    
+        try {
+            $query->execute();
+        } catch (Exception $e) {
+            echo "Fallo al modificar la partida: (" . $e->getMessage() . ") <br>";
+        }
+    
+        $query->close();
+        self::$conexion->close();
+    }
+
+    //Consulta a partidas terminadas
+    public static function partidasTerminadas(){
+        $partida=null;
+        if (self::comprobarConexion()==0) {
+            $consulta=self::$conexion->prepare(constantes::$selectTodosUsuarios);
+
+            try {
+                
+                $consulta->execute();
+                $resultados=$consulta->get_result();
+                $personas=[];
+
+                while ($fila=$resultados->fetch_array()){
+                    $partida = new partida($fila[0], $fila[1], $fila[2], $fila[3], $fila[4]);
+                    echo json_encode(['IdPartida: ' => $partida->idPartida,
+                    'IdUsuario: '=>$partida->idUsuario,
+                    'Finalizado: '=>$partida->finalizado]);
+                    array_push($partidas,$partida);
+                }
+            } catch (Exception $e) {
+                echo "Fallo al mostrar: (" . $e->getMessage() . ") <br>";
+            }
+            
+            $resultados->free_result();
+            $consulta->close();
+            self::$conexion->close();
+        }
+        return $partidas;
+    }
+
+    //Actualizar cada vez que gana una partida
+    public static function actualizarRankingPartidasGanadas($idPartida){
+        self::comprobarConexion();
+    
+        $query = self::$conexion->prepare(constantes::$actualizarGanadas);
+        $query->bind_param('i', $idPartida);
+    
+        try {
+            $query->execute();
+        } catch (Exception $e) {
+            echo "Fallo al actualizar las Ganadas: (" . $e->getMessage() . ") <br>";
+        }
+    
+        $query->close();
+        self::$conexion->close();
+    }
+
+    //Actualizar cada vez que juegue una partida
+    public static function actualizarRankingPartidasJugadas($idPartida){
+        self::comprobarConexion();
+    
+        $query = self::$conexion->prepare(constantes::$actualizarJugadas);
+        $query->bind_param('i', $idPartida);
+    
+        try {
+            $query->execute();
+        } catch (Exception $e) {
+            echo "Fallo al actualizar las Ganadas: (" . $e->getMessage() . ") <br>";
+        }
+    
+        $query->close();
+        self::$conexion->close();
+    }
+
+    //Rendirse
+    public static function rendirse($idPartida){
+        self::comprobarConexion();
+    
+        $query = self::$conexion->prepare(constantes::$rendirse);
+        $query->bind_param('i', $idPartida);
+    
+        try {
+            $query->execute();
+        } catch (Exception $e) {
+            echo "Fallo al actualizar las Ganadas: (" . $e->getMessage() . ") <br>";
         }
     
         $query->close();
