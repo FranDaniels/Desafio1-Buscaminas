@@ -173,18 +173,23 @@ class conexion{
         if (self::comprobarConexion()==0) {
             $consulta=self::$conexion->prepare(constantes::$consultarPartidaConcreta);
 
-            $stmt=self::$conexion->prepare($consulta);
-            $stmt->bind_param('i',$idPartida);
-            $stmt->execute();
-            $resultados=$stmt->get_result();
+            $consulta->bind_param('i',$idPartida);
+            $consulta->execute();
+            $resultados=$consulta->get_result();
 
             while ($fila=$resultados->fetch_array()){
-                print_r($fila);
+                $partida=new partida($fila[0],$fila[1],$fila[2],$fila[3],$fila[4]);
+                echo json_encode(['Id Partida:'=>$partida->idPartida,
+                'Id usuario:'=>$partida->idUsuario,
+                'Tablero Oculto:'=>$partida->tableroOculto,
+                'Tablero Mostrado:'=>$partida->tableroMostrado,
+                'Finalizada:'=>$partida->finalizado]);
             }
 
             $consulta->close();
             self::$conexion->close();
         }        
+        return $partida;
     }
 
     //Cambiar contraseña de usuario
