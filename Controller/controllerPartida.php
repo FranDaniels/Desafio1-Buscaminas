@@ -2,7 +2,7 @@
 
 require_once('Auxiliar/factoria.php');
 require_once('Auxiliar/conexion.php');
-require_once('Controller/controllerJSON');
+require_once('Controller/controllerJSON.php');
 
 class controllerPartida{
 
@@ -92,15 +92,17 @@ class controllerPartida{
     }
 
     public static function jugar($idpartida,$correo,$posicion){
-        $partida=conexion::consultarPartida($idpartida);
-        $jsonControlador=new controllerJSON();
-        $tablerOculto=$partida[3];
-        $tableroJugador=$partida[4];
+        $conexion=new conexion();
+        $partida=$conexion->consultarPartida($idpartida);
+        $jsonControlador=new controllerJSON;
+        $tablerOculto=$partida->getTableroOculto();
+        $tableroJugador=$partida->getTableroMostrado();
         $bombas=0;
 
         if ($partida) {
-            if ($partida[1]==$idpartida&& $partida[2]==$correo) { //Comprobamos que existe la partida coincide con el usuario
-                if ($partida[5]==0) {
+            if ($partida->getIdPartida()==$idpartida&& $partida->getIdUsuario()==$correo) { //Comprobamos que existe la partida coincide con el usuario
+                if ($partida->getFinalizado()==0) {
+                    
                     if ($tablerOculto[$posicion]=='*') {
                         $cod=205;
                         $mes='Has dado con una mina has perdido';
