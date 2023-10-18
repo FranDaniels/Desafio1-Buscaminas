@@ -17,10 +17,22 @@ Los usuarios y los administradores antes de poder realizar cualquier operación 
 http://127.0.0.1:234/admin/correo/contrasenia
 ```
 
+Ejemplo:
+
+```
+http://127.0.0.1:234/admin/fran/hola123
+```
+
 <h4>Usuario</h4>
 
 ```
 http://127.0.0.1:234/user/correo/contrasenia
+```
+
+Ejemplo:
+
+```
+http://127.0.0.1:234/user/fran/hola123
 ```
 
 <h2 align="center">🛠Manual de Administrador🛠</h2>
