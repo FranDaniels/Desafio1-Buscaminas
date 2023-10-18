@@ -175,7 +175,7 @@ unset($argus[0]);
                                 case 'jugar':
                                     if (controllerPartida::jugar($argus[5],$argus[2],$decode['pos'])) {
                                         $cod = 200;
-                                        $mes = 'Jugando';
+                                        $mes = 'Todo OK';
                                         header('HTTP/1.1 ' . $cod . ' ' . $mes);
                                         return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
                                     } else {
