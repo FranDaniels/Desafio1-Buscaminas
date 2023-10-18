@@ -63,6 +63,13 @@ class conexion{
 
                 while ($fila=$resultados->fetch_array()){
                     $persona = new Persona($fila[0], $fila[1], $fila[2], $fila[3], $fila[4], $fila[5], $fila[6]);
+                    echo json_encode(['Id: ' => $persona->id, 
+                    'Nombre: ' => $persona->nombre,
+                    'Contrasenia: '=>$persona->contrasenia,
+                    'Correo: '=>$persona->correo,
+                    'Partidas Jugadas: '=>$persona->partidasJugadas,
+                    'Partidas Ganadas: '=>$persona->partidasGanadas,
+                    'Administrador:' =>$persona->administrador]);
                 }
             } catch (Exception $e) {
                 echo "Fallo al mostrar: (" . $e->getMessage() . ") <br>";
