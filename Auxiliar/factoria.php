@@ -67,7 +67,8 @@ class factoria{
     public static function creacionPartida($idJugador,$tamanioTablero,$cantBombas){
         $tableroResuelto=factoria::crearTableroRelleno($tamanioTablero,$cantBombas);
         $tableroJugador=factoria::crearTableroNormal($tamanioTablero);
-        $partida=factoria::crearPartida('null',$idJugador,$tableroResuelto,$tableroJugador,false);
+
+        $partida=conexion::insertarPartida('null',$idJugador,$tableroResuelto,$tableroJugador,false);
 
         return $partida;
     }
