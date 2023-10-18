@@ -93,9 +93,10 @@ class controllerPartida{
 
     public static function jugar($idpartida,$correo,$posicion){
         $partida=conexion::consultarPartida($idpartida);
-        $jsonControlador=
+        $jsonControlador=new controllerJSON();
         $tablerOculto=$partida[3];
         $tableroJugador=$partida[4];
+        $bombas=0;
 
         if ($partida) {
             if ($partida[1]==$idpartida&& $partida[2]==$correo) { //Comprobamos que existe la partida coincide con el usuario
@@ -103,13 +104,36 @@ class controllerPartida{
                     if ($tablerOculto[$posicion]=='*') {
                         $cod=205;
                         $mes='Has dado con una mina has perdido';
-
-                    }elseif ($tablerOculto[$posicion]==1) {
+                        $jsonControlador->send($cod,$mes);
+                        $tableroJugador[$posicion]='*';
+                        conexion::actualizarPartidaFinalizada($idpartida);
+                    }elseif ($tablerOculto[$posicion+1]!=0 && $tablerOculto[$posicion-1]!=0) {
+                        $cod=218;
+                        $mes='Has marcado una casilla, pero yo que tu me iba de ahi';
+                        $bombas+=2;
+                    }elseif ($tablerOculto[$posicion+1]) {
                         $cod=218;
                         $mes='Has marcado una casilla, pero ten cuidado puede haber minas cerca';
+                        $jsonControlador->send($cod,$mes);
+                        $tableroJugador[$posicion]='x';
+                        $bombas+=1;
+                    }elseif ($tablerOculto[$posicion-1]) {
+                        $cod=218;
+                        $mes='Has marcado una casilla, pero ten cuidado puede haber minas cerca';
+                        $jsonControlador->send($cod,$mes);
+                        $tableroJugador[$posicion]='x';
+                        $bombas+=1;
                     }elseif ($tablerOculto[$posicion]==0) {
                         $cod=202;
                         $mes='Has marcado una casilla, estas a salvo';
+                        $jsonControlador->send($cod,$mes);
+                        $tableroJugador[$posicion]='x';
+                    }
+                    if ($bombas==3) {
+                        $cod=200;
+                        $mes='Has ganado has encontrado todas las bombas';
+                        $jsonControlador->send($cod,$mes);
+                        conexion::actualizarPartidaFinalizada($idpartida);
                     }
                 }
             }
