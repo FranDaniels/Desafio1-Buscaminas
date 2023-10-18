@@ -1,6 +1,6 @@
 <?php
 
-class ServiceJSON {
+class controllerJSON {
     public function send($code, $msg, $extra=null){
         header('Content-Type: application/json; charset=utf-8');
         $rtnArr = ["code: " => $code, "msg: " => $msg];
