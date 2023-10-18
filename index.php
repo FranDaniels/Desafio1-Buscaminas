@@ -243,6 +243,14 @@ unset($argus[0]);
                                         echo json_encode(['cod' => $cod, 'mes' => $mes]);
                                     }
                                     break;
+                                case 'rendirse':
+                                    if (controllerPartida::rendirse($argus[5])) {
+                                        $cod = 200;
+                                        $mes = 'Te has rendido';
+                                        header('HTTP/1.1 ' . $cod . ' ' . $mes);
+                                        return json_encode(['Código' => $cod, 'Mensaje' => $mes]);
+                                    }
+                                    break;
                             }
                         }
                         break;
